@@ -1,0 +1,182 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* =========================
+   ROOT (LIGHT THEME)
+========================= */
+:root {
+  /* Base */
+  --bg: oklch(0.95 0.015 240);
+  --text: oklch(0.22 0.02 240);
+
+  --card: oklch(0.94 0.02 240);
+  --muted: oklch(0.90 0.02 240);
+
+  /* Brand */
+  --primary: oklch(0.58 0.16 230);
+  --accent: oklch(0.68 0.14 210);
+
+  /* States */
+  --danger: oklch(0.58 0.2 25);
+  --success: oklch(0.62 0.16 150);
+  --warning: oklch(0.72 0.16 85);
+
+  /* UI */
+  --border: oklch(0.82 0.015 240);
+  --input: oklch(0.85 0.015 240);
+  --ring: oklch(0.58 0.16 230);
+
+  /* Charts */
+  --chart1: oklch(0.58 0.16 230);
+  --chart2: oklch(0.62 0.16 160);
+  --chart3: oklch(0.6 0.16 280);
+  --chart4: oklch(0.7 0.16 80);
+  --chart5: oklch(0.55 0.16 20);
+
+  --radius: 0.7rem;
+
+  /* ── shadcn required aliases (must be solid, no alpha) ── */
+  --background: oklch(0.95 0.015 240);        /* = --bg */
+  --foreground: oklch(0.22 0.02 240);         /* = --text */
+  --card-foreground: oklch(0.22 0.02 240);
+  --muted-foreground: oklch(0.50 0.02 240);
+  --primary-foreground: oklch(1 0 0);
+  --accent-foreground: oklch(0.22 0.02 240);
+  --popover: oklch(0.94 0.02 240);            /* = --card */
+  --popover-foreground: oklch(0.22 0.02 240);
+  --secondary: oklch(0.90 0.02 240);          /* = --muted */
+  --secondary-foreground: oklch(0.22 0.02 240);
+  --destructive: oklch(0.58 0.2 25);          /* = --danger */
+  --destructive-foreground: oklch(1 0 0);
+  --warning-foreground: oklch(0.22 0.02 240);
+  --success-foreground: oklch(1 0 0);
+}
+
+/* =========================
+   DARK THEME
+========================= */
+.dark {
+  --bg: oklch(0.14 0.01 240);
+  --text: oklch(0.92 0.01 240);
+
+  --card: oklch(0.20 0.015 240);
+  --muted: oklch(0.26 0.015 240);
+
+  --primary: oklch(0.65 0.16 230);
+  --accent: oklch(0.7 0.14 210);
+
+  --border: oklch(0.32 0.01 240);
+  --input: oklch(0.32 0.01 240);
+
+  /* ── shadcn required aliases (dark) ── */
+  --background: oklch(0.14 0.01 240);
+  --foreground: oklch(0.92 0.01 240);
+  --card-foreground: oklch(0.92 0.01 240);
+  --muted-foreground: oklch(0.60 0.01 240);
+  --primary-foreground: oklch(1 0 0);
+  --accent-foreground: oklch(0.92 0.01 240);
+  --popover: oklch(0.20 0.015 240);
+  --popover-foreground: oklch(0.92 0.01 240);
+  --secondary: oklch(0.26 0.015 240);
+  --secondary-foreground: oklch(0.92 0.01 240);
+  --destructive: oklch(0.58 0.2 25);
+  --destructive-foreground: oklch(1 0 0);
+}
+
+/* =========================
+   THEME MAPPING
+========================= */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-text: var(--text);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+
+  --color-primary: var(--primary);
+  --color-accent: var(--accent);
+
+  --color-danger: var(--danger);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-chart-1: var(--chart1);
+  --color-chart-2: var(--chart2);
+  --color-chart-3: var(--chart3);
+  --color-chart-4: var(--chart4);
+  --color-chart-5: var(--chart5);
+
+  /* shadcn aliases exposed to Tailwind */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-success-foreground: var(--success-foreground);
+
+  --radius: var(--radius);
+}
+
+/* =========================
+   BASE STYLES
+========================= */
+@layer base {
+  * {
+    @apply border-border outline-ring/40;
+  }
+
+  body {
+    @apply bg-bg text-text;
+  }
+
+  ::selection {
+    background: rgba(0, 0, 0, 0.06);
+    color: inherit;
+  }
+}
+
+/* =========================
+   SMOOTH THEME TRANSITION
+========================= */
+*,
+*::before,
+*::after {
+  transition:
+          background-color 0.3s ease,
+          border-color 0.3s ease,
+          color 0.2s ease,
+          fill 0.2s ease,
+          stroke 0.2s ease;
+}
+
+input, button, select, textarea {
+  transition:
+          background-color 0.2s ease,
+          border-color 0.2s ease,
+          color 0.15s ease,
+          box-shadow 0.15s ease;
+}
+
+/* =========================
+   OPTIONAL POLISH
+========================= */
+html {
+  scroll-behavior: smooth;
+}
+
+.hover-soft:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
