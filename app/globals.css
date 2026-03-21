@@ -38,17 +38,22 @@
   --radius: 0.7rem;
 
   /* ── shadcn required aliases (must be solid, no alpha) ── */
-  --background: oklch(0.95 0.015 240);        /* = --bg */
-  --foreground: oklch(0.22 0.02 240);         /* = --text */
+  --background: oklch(0.95 0.015 240);
+  /* = --bg */
+  --foreground: oklch(0.22 0.02 240);
+  /* = --text */
   --card-foreground: oklch(0.22 0.02 240);
   --muted-foreground: oklch(0.50 0.02 240);
   --primary-foreground: oklch(1 0 0);
   --accent-foreground: oklch(0.22 0.02 240);
-  --popover: oklch(0.94 0.02 240);            /* = --card */
+  --popover: oklch(0.94 0.02 240);
+  /* = --card */
   --popover-foreground: oklch(0.22 0.02 240);
-  --secondary: oklch(0.90 0.02 240);          /* = --muted */
+  --secondary: oklch(0.90 0.02 240);
+  /* = --muted */
   --secondary-foreground: oklch(0.22 0.02 240);
-  --destructive: oklch(0.58 0.2 25);          /* = --danger */
+  --destructive: oklch(0.58 0.2 25);
+  /* = --danger */
   --destructive-foreground: oklch(1 0 0);
   --warning-foreground: oklch(0.22 0.02 240);
   --success-foreground: oklch(1 0 0);
@@ -155,19 +160,22 @@
 *::before,
 *::after {
   transition:
-          background-color 0.3s ease,
-          border-color 0.3s ease,
-          color 0.2s ease,
-          fill 0.2s ease,
-          stroke 0.2s ease;
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.2s ease,
+    fill 0.2s ease,
+    stroke 0.2s ease;
 }
 
-input, button, select, textarea {
+input,
+button,
+select,
+textarea {
   transition:
-          background-color 0.2s ease,
-          border-color 0.2s ease,
-          color 0.15s ease,
-          box-shadow 0.15s ease;
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 /* =========================
