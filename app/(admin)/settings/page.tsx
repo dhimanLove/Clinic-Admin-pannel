@@ -19,9 +19,9 @@ import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 
-/* ═══════════════════════════════════════════════
+/*
    MOCK DATA
-═══════════════════════════════════════════════ */
+*/
 const MOCK_SESSIONS = [
     { id: '1', device: 'Chrome on Windows', icon: Monitor, location: 'Mumbai, IN', time: 'Active now', current: true },
     { id: '2', device: 'Safari on iPhone', icon: Smartphone, location: 'Delhi, IN', time: '2 hours ago', current: false },
@@ -38,9 +38,9 @@ const TIME_SLOTS = [
     '16:00','16:30','17:00','17:30','18:00','18:30','19:00',
 ];
 
-/* ═══════════════════════════════════════════════
+/*
    SMALL REUSABLE COMPONENTS
-═══════════════════════════════════════════════ */
+*/
 function SectionCard({ children, className }: { children: React.ReactNode; className?: string }) {
     return (
         <div className={cn('bg-card border border-border rounded-2xl p-5 sm:p-8', className)}>
@@ -174,9 +174,9 @@ function NotifRow({
     );
 }
 
-/* ═══════════════════════════════════════════════
+/*
    NAV
-═══════════════════════════════════════════════ */
+*/
 const NAV_ITEMS = [
     { id: 'profile', label: 'Profile', icon: User },
     { id: 'clinic', label: 'Clinic', icon: Building },
@@ -185,9 +185,9 @@ const NAV_ITEMS = [
     { id: 'security', label: 'Security', icon: Shield },
 ];
 
-/* ═══════════════════════════════════════════════
+/*
    MAIN PAGE
-═══════════════════════════════════════════════ */
+*/
 export default function SettingsPage() {
     const { currentDoctor } = useAuth();
     const [activeSection, setActiveSection] = useState('profile');

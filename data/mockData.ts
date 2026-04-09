@@ -1,4 +1,4 @@
-export type AppointmentStatus = 'pending' | 'accepted' | 'rejected';
+export type AppointmentStatus = 'pending' | 'accepted' | 'rejected' | 'completed';
 
 export interface Doctor {
   id: string;
@@ -22,6 +22,9 @@ export interface Appointment {
   status: AppointmentStatus;
   notes: string;
   createdAt: string;
+  // Set when an appointment is actually treated/completed
+  completedAt?: string;
+  treatmentSummary?: string;
 }
 
 /* ================= DOCTORS ================= */
@@ -140,16 +143,49 @@ function generateAppointments(): Appointment[] {
   let appointmentId = 1;
 
   doctors.forEach((doctor) => {
+    // Ensure every doctor has enough "real" treated patients for Patient Records UI
+    const minCompletedPatients = 10;
+    const completedSeedNames = patientNames.slice(0, minCompletedPatients);
+    for (let i = 0; i < completedSeedNames.length; i++) {
+      const patientName = completedSeedNames[i];
+      const patientPhone = generatePhone();
+      const patientEmail = generateEmail(patientName);
+      const visitsPerPatient = 3 + (i % 2); // 3–4 visits each
+      for (let v = 0; v < visitsPerPatient; v++) {
+        const daysOffset = -1 * (4 + i * 3 + v * 14); // spread in the past (roughly biweekly)
+        const date = getRandomDate(daysOffset);
+        const time = getRandomTime();
+        appointments.push({
+          id: `apt-${appointmentId++}`,
+          doctorId: doctor.id,
+          patientName,
+          patientPhone,
+          patientEmail,
+          issue: issues[Math.floor(Math.random() * issues.length)],
+          date,
+          time,
+          status: 'completed',
+          notes: '',
+          completedAt: new Date().toISOString(),
+          treatmentSummary:
+            'Diagnosis recorded. Procedure completed successfully. Medicines prescribed and follow‑up advised.',
+          createdAt: new Date(Date.now() - Math.random() * 18 * 24 * 60 * 60 * 1000).toISOString(),
+        });
+      }
+    }
+
     const numAppointments = 25 + Math.floor(Math.random() * 15); // 🔥 MORE DATA
 
     for (let i = 0; i < numAppointments; i++) {
       const patientName = patientNames[Math.floor(Math.random() * patientNames.length)];
 
       const rand = Math.random();
-      let status: AppointmentStatus =
-        rand < 0.4 ? 'pending' : rand < 0.75 ? 'accepted' : 'rejected';
+      let status: AppointmentStatus = rand < 0.4 ? 'pending' : rand < 0.78 ? 'accepted' : 'rejected';
 
       const daysOffset = Math.floor(Math.random() * 30) - 10;
+      // If it's in the past and was accepted, some are completed to seed "records"
+      const shouldAutoComplete = daysOffset < 0 && status === 'accepted' && Math.random() < 0.45;
+      if (shouldAutoComplete) status = 'completed';
 
       appointments.push({
         id: `apt-${appointmentId++}`,
@@ -162,6 +198,11 @@ function generateAppointments(): Appointment[] {
         time: getRandomTime(),
         status,
         notes: '',
+        completedAt: status === 'completed' ? new Date().toISOString() : undefined,
+        treatmentSummary:
+          status === 'completed'
+            ? 'Treatment completed. Vitals stable. Follow-up advised as needed.'
+            : undefined,
         createdAt: new Date(
           Date.now() - Math.random() * 10 * 24 * 60 * 60 * 1000
         ).toISOString(),

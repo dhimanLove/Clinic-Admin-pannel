@@ -11,19 +11,24 @@ import { ArrowRight, CalendarX } from 'lucide-react';
 
 const statusConfig = {
   pending: {
-    label:     'Pending',
+    label: 'Pending',
     className: 'bg-warning/10 text-warning-foreground border-warning/20',
-    dot:       'bg-warning',
+    dot: 'bg-warning',
   },
   accepted: {
-    label:     'Accepted',
+    label: 'Accepted',
     className: 'bg-success/10 text-success border-success/20',
-    dot:       'bg-success',
+    dot: 'bg-success',
+  },
+  completed: {
+    label: 'Completed',
+    className: 'bg-primary/10 text-primary border-primary/20',
+    dot: 'bg-primary',
   },
   rejected: {
-    label:     'Rejected',
+    label: 'Rejected',
     className: 'bg-destructive/10 text-destructive border-destructive/20',
-    dot:       'bg-destructive',
+    dot: 'bg-destructive',
   },
 };
 
@@ -60,8 +65,8 @@ export function RecentAppointments() {
 
   const appointments = currentDoctor
     ? getAppointmentsForDoctor(currentDoctor.id)
-        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-        .slice(0, 5)
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+      .slice(0, 5)
     : [];
 
   return (
@@ -104,7 +109,9 @@ export function RecentAppointments() {
           </div>
         ) : (
           appointments.map((appointment, index) => {
-            const status = statusConfig[appointment.status];
+            const status =
+              statusConfig[appointment.status as keyof typeof statusConfig] ??
+              statusConfig.pending;
             const ago = formatDistanceToNow(new Date(appointment.createdAt), {
               addSuffix: true,
             });
